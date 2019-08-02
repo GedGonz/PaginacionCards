@@ -1,0 +1,33 @@
+﻿@using PaginacionCards.Controllers;
+@{
+    ViewBag.Title = "Home Page";
+}
+@{
+
+
+    var paginador = ViewBag.ListAriticulos as PaginadorGenerico<Articulos>;
+
+ }
+
+<div class="container" id="container">
+    
+    @Html.Partial("_Card", paginador);
+
+</div>
+<script>
+
+    function Navegacion(pagina) {
+        console.log(pagina);
+
+          $.ajax({
+              url: '@Url.Action("_Card","Home")',
+              type: 'GET',
+              cache: false,
+              data: { pagina: pagina }
+          }).done(function (result) {
+
+                  $('#container').html(result);
+          });
+    }
+
+</script>
